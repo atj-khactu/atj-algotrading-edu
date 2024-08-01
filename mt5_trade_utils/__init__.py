@@ -3,19 +3,12 @@ import pandas as pd
 
 
 # function to send a market order
-def send_market_order(symbol, volume, order_type, sl_points=0.0, tp_points=0.0,
+def send_market_order(symbol, volume, order_type, sl=0.0, tp=0.0,
                  deviation=20, comment='', magic=1, type_filling=mt5.ORDER_FILLING_IOC):
     tick = mt5.symbol_info_tick(symbol)
 
     order_dict = {'buy': 0, 'sell': 1}
     price_dict = {'buy': tick.ask, 'sell': tick.bid}
-
-    if order_type == 'buy':
-        sl = price_dict[order_type] - sl_points
-        tp = price_dict[order_type] + tp_points
-    elif order_type == 'sell':
-        sl = price_dict[order_type] + sl_points
-        tp = price_dict[order_type] - tp_points
 
     request = {
         "action": mt5.TRADE_ACTION_DEAL,
@@ -94,4 +87,4 @@ def get_positions():
         return positions_df
 
     else:
-        return pd.DataFrame(columns=['symbol'])
+        return pd.DataFrame()
