@@ -37,7 +37,7 @@ def send_market_order(symbol, volume, order_type, sl_points=0.0, tp_points=0.0,
     return order_result
 
 
-def close_position(position, deviation=20, magic=1, comment='', type_filling=mt5.ORDER_FILLING_FOK):
+def close_position(position, deviation=20, magic=1, comment='', type_filling=mt5.ORDER_FILLING_IOC):
     order_type_dict = {
         0: mt5.ORDER_TYPE_SELL,
         1: mt5.ORDER_TYPE_BUY
@@ -66,7 +66,7 @@ def close_position(position, deviation=20, magic=1, comment='', type_filling=mt5
     return (order_result)
 
 
-def close_all_positions(order_type):
+def close_all_positions(order_type, type_filling=mt5.ORDER_FILLING_IOC):
     order_type_dict = {
         'buy': 0,
         'sell': 1
@@ -81,7 +81,7 @@ def close_all_positions(order_type):
             positions_df = positions_df[(positions_df['type'] == order_type_dict[order_type])]
 
         for i, position in positions_df.iterrows():
-            order_result = close_position(position, type_filling=mt5.ORDER_FILLING_FOK)
+            order_result = close_position(position, type_filling=type_filling)
 
             print('order_result: ', order_result)
 
