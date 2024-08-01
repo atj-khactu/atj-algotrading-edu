@@ -55,6 +55,8 @@ def close_position(position, deviation=20, magic=1, comment='', type_filling=mt5
         "type_filling": type_filling,
     }
 
+    print(request)
+
     order_result = mt5.order_send(request)
     return (order_result)
 

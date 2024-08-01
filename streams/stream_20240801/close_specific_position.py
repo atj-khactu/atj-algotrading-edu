@@ -18,8 +18,9 @@ if __name__ == '__main__':
     positions = get_positions()
     print(positions)
 
-    sleep(5)
+    pos_id = 48037277
+    pos = positions[positions['ticket'] == pos_id].iloc[0].to_dict()
 
-    for i, position in positions.iterrows():
-        if position.ticket == 48035065:
-            order_result = close_position(position)
+    sleep(5)
+    result = close_position(pos)
+    print(result)
