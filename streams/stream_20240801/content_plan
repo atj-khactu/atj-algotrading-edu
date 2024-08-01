@@ -4,6 +4,11 @@
 
 2) Create a Trading Account with a Broker
 3) Code the Trading Bot in PyCharm IDE
+    - https://www.mql5.com/en/docs/python_metatrader5
+
 4) Run the Trading Bot in the MetaTrader5 Trading Platform
 5) Run the Bot on a VPS
+    - https://contabo.com/en/
+
 6) Q&A Session
+

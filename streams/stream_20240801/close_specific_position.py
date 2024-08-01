@@ -1,8 +1,7 @@
 import MetaTrader5 as mt5
+from mt5_trade_utils import get_positions, close_position
+
 from time import sleep
-
-from mt5_trade_utils import send_market_order, close_position, close_all_positions
-
 
 if __name__ == '__main__':
     # initialize and login to MetaTrader5
@@ -16,16 +15,11 @@ if __name__ == '__main__':
 
     mt5.login(login, password, server)
 
-    sleep(5)
-
-    symbol = 'EURUSD'
-    volume = 1.0
-    order_type = 'buy'
-
-    send_market_order(symbol, volume, order_type)
+    positions = get_positions()
+    print(positions)
 
     sleep(5)
 
-    close_all_positions('all')
-
-
+    for i, position in positions.iterrows():
+        if position.ticket == 48035065:
+            order_result = close_position(position)
