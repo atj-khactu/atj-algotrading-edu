@@ -2,7 +2,7 @@
 File repository for ATJ Live Stream
 
 Clone Repo
-> git clone https://github.com/atj-khactu/atj-stream-repo.git
+> git clone https://github.com/atj-khactu/atj-algotrading-edu.git
 
 Install Python (3.11) requirements with PIP
 > pip install -r requirements.txt
