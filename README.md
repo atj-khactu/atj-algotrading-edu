@@ -1,4 +1,4 @@
-# atj-stream-repo
+# ATJ Algo Trading Educational Repository
 File repository for ATJ Live Stream
 
 Clone Repo
