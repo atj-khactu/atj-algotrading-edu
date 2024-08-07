@@ -1,5 +1,6 @@
 # ATJ Algo Trading Educational Repository
-File repository for ATJ Live Stream
+File repository for ATJ Live Stream 
+https://www.youtube.com/watch?v=wKW0hguxEKo&list=PLNzr8RBV5nboroOjaYy5m-6VhoFVt0Hv4
 
 ## Clone Repo
 > git clone https://github.com/atj-khactu/atj-algotrading-edu.git
