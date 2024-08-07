@@ -9,7 +9,7 @@ if __name__ == '__main__':
     mt5.initialize()
 
     # Click here to open your own trading account at Tickmill
-    # https://www.tickmill.com/eu
+    # https://bit.ly/4dtsz1Q
     login = 25131017
     password = 'vT8.iqYHWia!'
     server = 'TickmillEU-Demo'
