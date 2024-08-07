@@ -61,7 +61,7 @@ def close_position(position, deviation=20, magic=1, comment='', type_filling=mt5
     return (order_result)
 
 
-def close_all_positions(order_type, type_filling=mt5.ORDER_FILLING_IOC):
+def close_all_positions(order_type, magic=None, type_filling=mt5.ORDER_FILLING_IOC):
     order_type_dict = {
         'buy': 0,
         'sell': 1
@@ -72,13 +72,25 @@ def close_all_positions(order_type, type_filling=mt5.ORDER_FILLING_IOC):
 
         positions_df = pd.DataFrame(positions, columns=positions[0]._asdict().keys())
 
+        # filtering by magic if specified
+        if magic:
+            positions_df = positions_df[positions_df['magic'] == magic]
+
         if order_type != 'all':
             positions_df = positions_df[(positions_df['type'] == order_type_dict[order_type])]
 
-        for i, position in positions_df.iterrows():
-            order_result = close_position(position, type_filling=type_filling)
+        if positions_df.empty:
+            print('No open positions')
+            return []
 
+        results = []
+        for i, position in positions_df.iterrows():
+
+            order_result = close_position(position, type_filling=type_filling)
             print('order_result: ', order_result)
+            results.append(order_result)
+
+        return 1
 
 
 def get_positions():
