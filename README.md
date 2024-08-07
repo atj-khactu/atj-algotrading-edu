@@ -3,7 +3,7 @@ This repository provides educational material for algorithmic trading using Pyth
 Please be reminded that trading on MetaTrader5 is currently supported on Windows only. 
 
 Youtube Channel:
-https://www.youtube.com/watch?v=wKW0hguxEKo&list=PLNzr8RBV5nboroOjaYy5m-6VhoFVt0Hv4
+https://www.youtube.com/playlist?list=PLNzr8RBV5nboroOjaYy5m-6VhoFVt0Hv4
 
 ## Clone Repo
 > git clone https://github.com/atj-khactu/atj-algotrading-edu.git
