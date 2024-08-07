@@ -1,10 +1,10 @@
 # ATJ Algo Trading Educational Repository
 File repository for ATJ Live Stream
 
-Clone Repo
+## Clone Repo
 > git clone https://github.com/atj-khactu/atj-algotrading-edu.git
 
-Install Python (3.11) requirements with PIP
+## Install Python (3.11) requirements with PIP
 > pip install -r requirements.txt
 
 You will also need to set up a MetaTrader5 (MT5) trading account. You can follow the steps below:
