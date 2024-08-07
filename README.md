@@ -18,3 +18,11 @@ You will also need to set up a MetaTrader5 (MT5) trading account. You can follow
 ## Discord Support
 For more information and help, join my Discord Community Server:
 https://discord.gg/DbE9aqwthT
+
+## Disclaimer
+The content on this website does not serve as investment advice but serves for educational purposes only. 
+Your capital is at risk when trading in the financial markets. Past performance is not an indicator of future results. 
+The use of ATJ Traders' content or 3rd party investment services is solely at your own discretion and responsibility.
+
+Links in the project may contain affiliate links. ATJ Traders may receive rewards from clicks or purchases generated 
+from those links.
