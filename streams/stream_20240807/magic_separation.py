@@ -18,7 +18,7 @@ if __name__ == '__main__':
 
     # open first position
     sleep(5)
-    send_market_order('USDJPY', 1.0, 'buy', magic=10)
+    res = send_market_order('USDJPY', 1.0, 'buy', magic=10)
 
     # open second position
     sleep(5)
