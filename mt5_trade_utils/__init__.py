@@ -4,7 +4,7 @@ import pandas as pd
 
 # function to send a market order
 def send_market_order(symbol, volume, order_type, sl=0.0, tp=0.0,
-                 deviation=20, comment='', magic=1, type_filling=mt5.ORDER_FILLING_IOC):
+                 deviation=20, comment='', magic=0, type_filling=mt5.ORDER_FILLING_IOC):
     tick = mt5.symbol_info_tick(symbol)
 
     order_dict = {'buy': 0, 'sell': 1}
@@ -30,7 +30,7 @@ def send_market_order(symbol, volume, order_type, sl=0.0, tp=0.0,
     return order_result
 
 
-def close_position(position, deviation=20, magic=1, comment='', type_filling=mt5.ORDER_FILLING_IOC):
+def close_position(position, deviation=20, magic=0, comment='', type_filling=mt5.ORDER_FILLING_IOC):
     order_type_dict = {
         0: mt5.ORDER_TYPE_SELL,
         1: mt5.ORDER_TYPE_BUY
@@ -93,10 +93,13 @@ def close_all_positions(order_type, magic=None, type_filling=mt5.ORDER_FILLING_I
         return 1
 
 
-def get_positions():
+def get_positions(magic=None):
     if mt5.positions_total():
         positions = mt5.positions_get()
         positions_df = pd.DataFrame(positions, columns=positions[0]._asdict().keys())
+
+        if magic:
+            positions_df = positions_df[positions_df['magic'] == magic]
 
         return positions_df
 
