@@ -18,20 +18,17 @@ if __name__ == '__main__':
 
     # open first position
     sleep(5)
-    send_market_order('EURUSD', 1.0, 'buy', magic=1)
+    send_market_order('USDJPY', 1.0, 'buy', magic=10)
 
     # open second position
     sleep(5)
-    send_market_order('GBPUSD', 1.0, 'buy', magic=2)
+    send_market_order('EURJPY', 1.0, 'buy', magic=20)
 
     # close first position
     sleep(5)
 
-    close_all_positions('all', magic=1)
+    close_all_positions('all', magic=10)
 
     # close second position
     sleep(5)
-    close_all_positions('all', magic=2)
-
-    pos1 = get_positions(magic=1)
-    pos = pos1 = get_positions()
+    close_all_positions('all', magic=20)

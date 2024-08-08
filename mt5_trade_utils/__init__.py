@@ -4,7 +4,7 @@ import pandas as pd
 
 # function to send a market order
 def send_market_order(symbol, volume, order_type, sl=0.0, tp=0.0,
-                 deviation=20, comment='', magic=0, type_filling=mt5.ORDER_FILLING_IOC):
+                      deviation=20, comment='', magic=0, type_filling=mt5.ORDER_FILLING_IOC):
     tick = mt5.symbol_info_tick(symbol)
 
     order_dict = {'buy': 0, 'sell': 1}
@@ -85,7 +85,6 @@ def close_all_positions(order_type, magic=None, type_filling=mt5.ORDER_FILLING_I
 
         results = []
         for i, position in positions_df.iterrows():
-
             order_result = close_position(position, type_filling=type_filling)
             print('order_result: ', order_result)
             results.append(order_result)
@@ -104,4 +103,6 @@ def get_positions(magic=None):
         return positions_df
 
     else:
-        return pd.DataFrame()
+        return pd.DataFrame(columns=['ticket', 'time', 'time_msc', 'time_update', 'time_update_msc', 'type',
+                                     'magic', 'identifier', 'reason', 'volume', 'price_open', 'sl', 'tp',
+                                     'price_current', 'swap', 'profit', 'symbol', 'comment', 'external_id'])
