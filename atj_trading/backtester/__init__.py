@@ -53,7 +53,7 @@ class _Orders():
 class Backtester():
     def __init__(self):
         self.exchange_rate = 1
-        self.commission = -1
+        self.commission = 0
         self.swap_long = 0
         self.swap_short = 0
         self.triple_swap_day = 4
