@@ -2,9 +2,12 @@
 
 import pandas as pd
 import MetaTrader5 as mt5
+import plotly.io as pio
 import plotly.express as px
 import plotly.graph_objects as go
 from IPython.display import display
+
+pio.templates.default = "plotly_dark"
 
 
 class _Orders():
