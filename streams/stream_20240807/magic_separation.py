@@ -1,7 +1,7 @@
 import MetaTrader5 as mt5
 from time import sleep
 
-from mt5_trade_utils import send_market_order, close_position, close_all_positions, get_positions
+from atj_trading.mt5_trade_utils import send_market_order, close_all_positions
 from config import mt5_credentials
 
 if __name__ == '__main__':

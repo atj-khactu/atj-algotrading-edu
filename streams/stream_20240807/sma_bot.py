@@ -3,7 +3,7 @@ import pandas as pd
 from time import sleep
 from datetime import datetime
 
-from mt5_trade_utils import send_market_order, close_position, close_all_positions, get_positions
+from atj_trading.mt5_trade_utils import send_market_order, close_all_positions, get_positions
 from config import mt5_credentials
 
 
