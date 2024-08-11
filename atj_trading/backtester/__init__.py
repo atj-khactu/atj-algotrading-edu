@@ -257,7 +257,7 @@ def create_price_fig(ohlc, indicators=[]):
                                              low=ohlc['low'],
                                              close=ohlc['close'], name='OHLC Data')])
 
-        fig.update_layout(height=600, title='Backtest Trades')
+        fig.update_layout(height=600, title='Historical Price Data')
         fig.update_layout(xaxis_rangeslider_visible=False)
 
     return fig

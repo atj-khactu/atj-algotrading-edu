@@ -1,11 +1,3 @@
-Strategy Requests from Subscribers:
-If you want to have a Trading Bot coded on-stream, you can contact me at trading@atj-traders.com
+A new Backtesting package is ready
 
-Content Plan:
-1) Review Bollinger Band Strategy from last stream
-2) 3-minute Breakout (Subscriber Request from Otto)
-    - Look for Trend Reversals
-    - Look for breakout zones
-    - enter on 3-minute-breakout (3MBO)
-    - apply a trailing stop
-3) Q&A Session
+1) We will backtest various strategies using the backtester
