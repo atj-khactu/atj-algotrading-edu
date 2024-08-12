@@ -164,26 +164,27 @@ class Backtester():
         self.trades['commission'] = self.commission * self.trades['volume']
         self.trades['profit_net'] = self.trades['profit'] + self.trades['commission']
         self.trades['profit_cumulative'] = self.trades['profit_net'].cumsum()
+        self.trades['balance'] = self.trades['profit_cumulative'] + self.starting_balance
 
         return self.trades
 
-    def visualize_backtest(self, ohlc, indicators=[], num_trades=None):
+    def visualize_backtest(self, indicators=[], num_trades=None):
         # visualize backtest
 
         if indicators:
-            fig = px.line(ohlc, x='time', y=indicators, height=600, title='Backtest Trades')
-            fig.add_trace(go.Candlestick(x=ohlc['time'],
-                                         open=ohlc['open'],
-                                         high=ohlc['high'],
-                                         low=ohlc['low'],
-                                         close=ohlc['close'], name='OHLC Data'))
+            fig = px.line(self.ohlc_data, x='time', y=indicators, height=600, title='Backtest Trades')
+            fig.add_trace(go.Candlestick(x=self.ohlc_data['time'],
+                                         open=self.ohlc_data['open'],
+                                         high=self.ohlc_data['high'],
+                                         low=self.ohlc_data['low'],
+                                         close=self.ohlc_data['close'], name='OHLC Data'))
             fig.update_layout(xaxis_rangeslider_visible=False)
         else:
-            fig = go.Figure(data=[go.Candlestick(x=ohlc['time'],
-                                                 open=ohlc['open'],
-                                                 high=ohlc['high'],
-                                                 low=ohlc['low'],
-                                                 close=ohlc['close'], name='OHLC Data')])
+            fig = go.Figure(data=[go.Candlestick(x=self.ohlc_data['time'],
+                                                 open=self.ohlc_data['open'],
+                                                 high=self.ohlc_data['high'],
+                                                 low=self.ohlc_data['low'],
+                                                 close=self.ohlc_data['close'], name='OHLC Data')])
 
             fig.update_layout(height=600, title='Backtest Trades')
             fig.update_layout(xaxis_rangeslider_visible=False)
@@ -215,6 +216,10 @@ class Backtester():
 
     def plot_pnl(self):
         fig = px.line(self.trades, x='open_time', y='profit_cumulative', title='PnL Graph')
+        return fig
+
+    def plot_balance(self):
+        fig = px.line(self.trades, x='close_time', y='balance', title='Balance Graph')
         return fig
 
 
