@@ -35,7 +35,8 @@ class _Orders():
 
         self.orders.append(order)
 
-    def modify_sl(self, trade_id, sl):
+    def modify_sl(self, trade, sl):
+        trade_id = trade.name
         order = {
             'action': 'modify_sl',
             'trade_id': trade_id,
@@ -44,7 +45,8 @@ class _Orders():
 
         self.orders.append(order)
 
-    def modify_tp(self, trade_id, tp):
+    def modify_tp(self, trade, tp):
+        trade_id = trade.name
         order = {
             'action': 'modify_tp',
             'trade_id': trade_id,
@@ -122,28 +124,28 @@ class Backtester():
                                                                                                    data['time'],
                                                                                                    data['open']]
 
-                # close positions that hit sl or tp, iterating though open trades with index x
-                for x in open_trades.index:
-                    t = open_trades.loc[x]
-                    if t['order_type'] == 'buy':
-                        if t['sl'] >= data['low'] and t['sl'] != 0:
-                            # filling exactly at SL price might cause inaccuracy in backtest as you will receive slippage
-                            # many times.
-                            self.trades.loc[x, ['state', 'close_time', 'close_price']] = ['closed', data['time'],
-                                                                                          t['sl']]
-                        elif t['tp'] <= data['high'] and t['tp'] != 0:
-                            self.trades.loc[x, ['state', 'close_time', 'close_price']] = ['closed', data['time'],
-                                                                                          t['tp']]
+            # close positions that hit sl or tp, iterating though open trades with index x
+            for x in open_trades.index:
+                t = open_trades.loc[x]
+                if t['order_type'] == 'buy':
+                    if t['sl'] >= data['low'] and t['sl'] != 0:
+                        # filling exactly at SL price might cause inaccuracy in backtest as you will receive slippage
+                        # many times.
+                        self.trades.loc[x, ['state', 'close_time', 'close_price']] = ['closed', data['time'],
+                                                                                      t['sl']]
+                    elif t['tp'] <= data['high'] and t['tp'] != 0:
+                        self.trades.loc[x, ['state', 'close_time', 'close_price']] = ['closed', data['time'],
+                                                                                      t['tp']]
 
-                    elif t['order_type'] == 'sell':
-                        if t['sl'] <= data['high'] and t['sl'] != 0:
-                            # filling exactly at SL price might cause inaccuracy in backtest as you will receive slippage
-                            # many times.
-                            self.trades.loc[x, ['state', 'close_time', 'close_price']] = ['closed', data['time'],
-                                                                                          t['sl']]
-                        elif t['tp'] >= data['low'] and t['tp'] != 0:
-                            self.trades.loc[x, ['state', 'close_time', 'close_price']] = ['closed', data['time'],
-                                                                                          t['tp']]
+                elif t['order_type'] == 'sell':
+                    if t['sl'] <= data['high'] and t['sl'] != 0:
+                        # filling exactly at SL price might cause inaccuracy in backtest as you will receive slippage
+                        # many times.
+                        self.trades.loc[x, ['state', 'close_time', 'close_price']] = ['closed', data['time'],
+                                                                                      t['sl']]
+                    elif t['tp'] >= data['low'] and t['tp'] != 0:
+                        self.trades.loc[x, ['state', 'close_time', 'close_price']] = ['closed', data['time'],
+                                                                                      t['tp']]
 
         # used for closing trades at the end of backtest
         last_time = self.ohlc_data.iloc[-1]['time']
