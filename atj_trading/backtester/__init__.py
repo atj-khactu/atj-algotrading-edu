@@ -114,15 +114,15 @@ class Backtester():
                                                                               order['order_type'], order['volume'],
                                                                               data['time'], data['open'], None, None,
                                                                               order['sl'], order['tp']]
-
-                # close trade logic
-                if open_trades.empty:
-                    continue
-
-                if order['action'] == 'exit':
+                elif order['action'] == 'exit':
                     self.trades.loc[order['trade_id'], ['state', 'close_time', 'close_price']] = ['closed',
                                                                                                    data['time'],
                                                                                                    data['open']]
+                elif order['action'] == 'modify_sl':
+                    self.trades.loc[order['trade_id'], ['sl']] = [order['sl']]
+
+                elif order['action'] == 'modify_tp':
+                    self.trades.loc[order['trade_id'], ['tp']] = [order['tp']]
 
             # close positions that hit sl or tp, iterating though open trades with index x
             for x in open_trades.index:
