@@ -14,14 +14,15 @@ class _Orders():
     def __init__(self):
         self.orders = []
 
-    def open_trade(self, symbol, volume, order_type, sl=0, tp=0):
+    def open_trade(self, symbol, volume, order_type, sl=0, tp=0, info=None):
         order = {
             'action': 'entry',
             'symbol': symbol,
             'volume': volume,
             'order_type': order_type,
             'sl': sl,
-            'tp': tp
+            'tp': tp,
+            'info': info
         }
 
         self.orders.append(order)
@@ -68,7 +69,7 @@ class Backtester():
 
         self.trades = pd.DataFrame(
             columns=['state', 'symbol', 'order_type', 'volume', 'open_time', 'open_price', 'close_time',
-                     'close_price', 'sl', 'tp'])
+                     'close_price', 'sl', 'tp', 'info'])
 
     def set_starting_balance(self, starting_balance, currency='EUR'):
         self.starting_balance = starting_balance
@@ -113,7 +114,7 @@ class Backtester():
                     self.trades.loc[len(self.trades), self.trades.columns] = ['open', order['symbol'],
                                                                               order['order_type'], order['volume'],
                                                                               data['time'], data['open'], None, None,
-                                                                              order['sl'], order['tp']]
+                                                                              order['sl'], order['tp'], order['info']]
                 elif order['action'] == 'exit':
                     self.trades.loc[order['trade_id'], ['state', 'close_time', 'close_price']] = ['closed',
                                                                                                    data['time'],
@@ -278,7 +279,8 @@ def get_tick_history(symbol, start, end):
     return ticks_df
 
 
-def evaluate_backtest(df):
+def evaluate_backtest(df_og):
+    df = df_og.copy()
     df['open_time'] = pd.to_datetime(df['open_time'])
     df['close_time'] = pd.to_datetime(df['close_time'])
 
