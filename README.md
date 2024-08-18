@@ -26,6 +26,9 @@ You will also need to set up a MetaTrader5 (MT5) trading account. You can follow
 Do you find the project helpful? You can support us by becoming a YouTube Member and gain priority for 
 algo trading consulting and Q&A's on our Discord Community Server or during Live Streams.
 
+YouTube Membership:
+https://www.youtube.com/@ATJTraders618/join
+
 ## Disclaimer
 The content on this website does not serve as investment advice but serves for educational purposes only. 
 Your capital is at risk when trading in the financial markets. Past performance is not an indicator of future results. 
