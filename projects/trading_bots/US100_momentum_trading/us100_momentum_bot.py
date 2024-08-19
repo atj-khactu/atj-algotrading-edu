@@ -1,7 +1,7 @@
 import MetaTrader5 as mt5
 from time import sleep
 import pandas as pd
-from datetime import datetime, time
+from datetime import datetime, time, timedelta
 import pytz
 
 from mt5_credentials import login, password, server, mt5_path
@@ -26,8 +26,7 @@ magic = 1
 
 tz = pytz.timezone('EET')
 
-candle_close_start = 16
-close_trades_after_hour = 22
+candle_close_start = 15
 
 update_interval_seconds = 1
 
@@ -45,6 +44,30 @@ def get_candle_type(candle):
         return 'bullish candle'
     elif candle['close'] < candle['open']:
         return 'bearish candle'
+
+def has_closed_trades():
+    start_dt = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
+    print('today', start_dt)
+    end_dt = datetime.now() + timedelta(days=1)
+    print('now', end_dt)
+
+    deals = mt5.history_deals_get(start_dt, end_dt)
+    print(deals)
+
+    if deals:
+        return True
+    else:
+        False
+
+
+def get_sma():
+    candle = mt5.copy_rates_from_pos(symbol, timeframe, 1, 100)
+    candle_df = pd.DataFrame(candle)
+
+    sma_10 = candle_df.tail(10)['close'].mean()
+    sma_100 = candle_df['close'].mean()
+
+    return sma_10, sma_100
 
 
 if __name__ == '__main__':
@@ -65,16 +88,19 @@ if __name__ == '__main__':
         candle_type = get_candle_type(candle)
         open_positions = get_positions(magic=magic)
 
-        if candle['hour'] == candle_close_start and open_positions.empty:
+        sma_10, sma_100 = get_sma()
+
+        print('has closed trades', has_closed_trades())
+        if candle['hour'] == candle_close_start and open_positions.empty and not has_closed_trades():
 
             # buy positions
-            if candle_type == 'bullish candle':
+            if candle_type == 'bullish candle' and sma_10 > sma_100:
                 res = send_market_order(symbol, volume, 'buy', sl=candle['low'], magic=magic,
                                         comment='US100 Momentum Bot')
                 print(res)
 
             # sell positions
-            elif candle_type == 'bearish candle':
+            elif candle_type == 'bearish candle' and sma_10 < sma_100:
                 res = send_market_order(symbol, volume, 'sell', sl=candle['high'], magic=magic,
                                         comment='US100 Momentum Bot')
                 print(res)
