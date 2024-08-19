@@ -101,7 +101,6 @@ class Backtester():
 
         for i in self.ohlc_data.index:
             data = self.ohlc_data.loc[i]
-            open_trades = self.trades[self.trades['state'] == 'open']
 
             self.orders = _Orders()
 
@@ -125,6 +124,7 @@ class Backtester():
                 elif order['action'] == 'modify_tp':
                     self.trades.loc[order['trade_id'], ['tp']] = [order['tp']]
 
+            open_trades = self.trades[self.trades['state'] == 'open']
             # close positions that hit sl or tp, iterating though open trades with index x
             for x in open_trades.index:
                 t = open_trades.loc[x]

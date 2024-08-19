@@ -1,6 +1,8 @@
 import MetaTrader5 as mt5
 from time import sleep
 import pandas as pd
+from datetime import datetime, time
+import pytz
 
 from mt5_credentials import login, password, server, mt5_path
 from atj_trading.mt5_trade_utils import send_market_order, close_all_positions, get_positions, modify_sl_tp
@@ -20,10 +22,14 @@ Optional
 symbol = 'USTEC'
 timeframe = mt5.TIMEFRAME_H1
 volume = 1.0
-magic = 2
+magic = 1
 
-candle_close_start = 19
-close_trades_after_hour = 19
+tz = pytz.timezone('EET')
+
+candle_close_start = 16
+close_trades_after_hour = 22
+
+update_interval_seconds = 1
 
 
 def get_last_candle():
@@ -71,7 +77,6 @@ if __name__ == '__main__':
                     # update sl
                     modify_sl_tp(pos1.ticket, candle['high'], 0.0)
 
-
         if candle['hour'] == candle_close_start and open_positions.empty:
 
             # buy positions
@@ -82,11 +87,8 @@ if __name__ == '__main__':
             elif candle_type == 'bearish candle':
                 res = send_market_order(symbol, volume, 'sell', sl=candle['high'], magic=magic)
 
-
-        """
-        sleep(5)
-        if candle['hour'] >= close_trades_after_hour:
+        # close trades before market close
+        if datetime.now(tz).time() >= time(22, 55, 0):
             close_all_positions('all', magic=magic)
-        """
 
-        sleep(1)
+        sleep(update_interval_seconds)
