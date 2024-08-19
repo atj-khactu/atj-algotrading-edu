@@ -12,7 +12,7 @@ from atj_trading.mt5_trade_utils import send_market_order, close_all_positions, 
 2) Check whether the candle is bullish or bearish
 3) Open a trade in the same direction
 4) Set Stop Loss to last candle min/max
-4) We close the trade at 23:00
+4) We close the trade at 22:55
 
 --
 Optional
@@ -21,7 +21,7 @@ Optional
 
 symbol = 'USTEC'
 timeframe = mt5.TIMEFRAME_H1
-volume = 1.0
+volume = 0.1
 magic = 1
 
 tz = pytz.timezone('EET')
@@ -57,35 +57,27 @@ if __name__ == '__main__':
 
     trading_allowed = True
     while trading_allowed:
+        print(datetime.now(), '|', 'US100 Momentum Bot is running')
+
         # strategy logic
         candle = get_last_candle()
 
         candle_type = get_candle_type(candle)
-
         open_positions = get_positions(magic=magic)
-
-        if not open_positions.empty:
-            pos1 = open_positions.iloc[0]
-
-            if pos1['type'] == mt5.ORDER_TYPE_BUY:
-                if pos1['sl'] != candle['low']:
-                    # update sl
-                    modify_sl_tp(pos1.ticket, candle['low'], 0.0)
-
-            elif pos1['type'] == mt5.ORDER_TYPE_sell:
-                if pos1['sl'] != candle['high']:
-                    # update sl
-                    modify_sl_tp(pos1.ticket, candle['high'], 0.0)
 
         if candle['hour'] == candle_close_start and open_positions.empty:
 
             # buy positions
             if candle_type == 'bullish candle':
-                res = send_market_order(symbol, volume, 'buy', sl=candle['low'], magic=magic)
+                res = send_market_order(symbol, volume, 'buy', sl=candle['low'], magic=magic,
+                                        comment='US100 Momentum Bot')
+                print(res)
 
             # sell positions
             elif candle_type == 'bearish candle':
-                res = send_market_order(symbol, volume, 'sell', sl=candle['high'], magic=magic)
+                res = send_market_order(symbol, volume, 'sell', sl=candle['high'], magic=magic,
+                                        comment='US100 Momentum Bot')
+                print(res)
 
         # close trades before market close
         if datetime.now(tz).time() >= time(22, 55, 0):
