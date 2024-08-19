@@ -26,7 +26,7 @@ magic = 1
 
 tz = pytz.timezone('EET')
 
-candle_close_start = 15
+candle_close_start = 16
 
 update_interval_seconds = 1
 
