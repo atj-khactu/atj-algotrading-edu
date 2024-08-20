@@ -5,7 +5,11 @@ from time import sleep
 
 
 class TradingBot:
-    def __init__(self, symbol, timeframe):
+    def __init__(self, symbol, timeframe, magic=None):
+        if magic is None:
+            print('Please set Magic number')
+            raise ValueError
+
         self.symbol = symbol
         self.timeframe = timeframe
 
@@ -18,7 +22,7 @@ class TradingBot:
     def on_init(self):
         pass
 
-    def on_deinit(self):
+    def on_shutdown(self):
         pass
 
     def on_bar(self):

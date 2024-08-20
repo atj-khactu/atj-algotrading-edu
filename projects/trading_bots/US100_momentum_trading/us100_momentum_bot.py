@@ -47,12 +47,9 @@ def get_candle_type(candle):
 
 def has_closed_trades():
     start_dt = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
-    print('today', start_dt)
     end_dt = datetime.now() + timedelta(days=1)
-    print('now', end_dt)
 
     deals = mt5.history_deals_get(start_dt, end_dt)
-    print(deals)
 
     if deals:
         return True
@@ -90,7 +87,6 @@ if __name__ == '__main__':
 
         sma_10, sma_100 = get_sma()
 
-        print('has closed trades', has_closed_trades())
         if candle['hour'] == candle_close_start and open_positions.empty and not has_closed_trades():
 
             # buy positions
