@@ -92,6 +92,24 @@ def close_all_positions(order_type, magic=None, type_filling=mt5.ORDER_FILLING_I
         return 1
 
 
+def modify_sl_tp(ticket, stop_loss, take_profit):
+    # modify SL/TP
+
+    stop_loss = float(stop_loss)
+    take_profit = float(take_profit)
+
+
+    request = {
+        'action': mt5.TRADE_ACTION_SLTP,
+        'position': ticket,
+        'sl': stop_loss,
+        'tp': take_profit
+    }
+
+    res = mt5.order_send(request)
+    return res
+
+
 def get_positions(magic=None):
     if mt5.positions_total():
         positions = mt5.positions_get()

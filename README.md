@@ -2,6 +2,9 @@
 This repository provides educational material for algorithmic trading using Python.
 Please be reminded that trading on MetaTrader5 is currently supported on Windows only. 
 
+Website:
+https://www.atj-traders.com
+
 Youtube Channel:
 https://www.youtube.com/playlist?list=PLNzr8RBV5nboroOjaYy5m-6VhoFVt0Hv4
 
@@ -19,9 +22,12 @@ You will also need to set up a MetaTrader5 (MT5) trading account. You can follow
 4) Download the MetaTrader5 Desktop Application and login
 5) Create config.py copy from config_template.py and save the MT5 credentials there
 
-## Discord Support
-For more information and help, join my Discord Community Server:
-https://discord.gg/DbE9aqwthT
+## Support the Project
+Do you find the project helpful? You can support us by becoming a YouTube Member and gain priority for 
+algo trading consulting and Q&A's on our Discord Community Server or during Live Streams.
+
+YouTube Membership:
+https://www.youtube.com/@ATJTraders618/join
 
 ## Disclaimer
 The content on this website does not serve as investment advice but serves for educational purposes only. 

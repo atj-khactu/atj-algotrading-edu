@@ -1,0 +1,8 @@
+1) Wait for the 16:00 candle to close (1H timeframe)
+2) Check whether the candle is bullish or bearish
+3) Open a trade in the same direction
+4) We close the trade at 23:00
+
+--
+Optional
+1) Trailing SL using SMA/EMA
