@@ -14,7 +14,7 @@ class _Orders():
     def __init__(self):
         self.orders = []
 
-    def open_trade(self, symbol, volume, order_type, sl=0, tp=0, info=None):
+    def open_trade(self, symbol, volume, order_type, sl=0, tp=0, info={}):
         order = {
             'action': 'entry',
             'symbol': symbol,
@@ -112,7 +112,7 @@ class Backtester():
                 if order['action'] == 'entry':
                     self.trades.loc[len(self.trades), self.trades.columns] = ['open', order['symbol'],
                                                                               order['order_type'], order['volume'],
-                                                                              data['time'], data['open'], None, None,
+                                                                              data['time'], data['open'], '', '',
                                                                               order['sl'], order['tp'], order['info']]
                 elif order['action'] == 'exit':
                     self.trades.loc[order['trade_id'], ['state', 'close_time', 'close_price']] = ['closed',
@@ -224,6 +224,33 @@ class Backtester():
     def plot_balance(self):
         fig = px.line(self.trades, x='close_time', y='balance', title='Balance Graph')
         return fig
+
+    def export_to_json(self, filename, symbol='', indicators=[]):
+        import json
+
+        ohlc_data = self.ohlc_data.copy()
+
+        for col in ohlc_data.columns:
+            if col in ['time', 'date']:
+                ohlc_data[col] = ohlc_data[col].astype(str)
+
+        trades = self.trades.copy()
+        trades['open_time'] = trades['open_time'].astype(str)
+        trades['close_time'] = trades['close_time'].astype(str)
+
+        data = {
+            'symbol': symbol,
+            'indicators': indicators,
+            'starting_balance': self.starting_balance,
+            'exchange_rate': self.exchange_rate,
+            'ohlc_history': ohlc_data.to_dict('records'),
+            'trade_history': trades.to_dict('records'),
+        }
+
+        with open(filename, "w") as jsonfile:
+            json.dump(data, jsonfile)
+
+        return 1
 
 
 # Extract Data and Visualization
