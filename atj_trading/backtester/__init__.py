@@ -254,12 +254,12 @@ class Backtester():
 
 
 # Extract Data and Visualization
-def get_ohlc_history(symbol, timeframe, date_from, date_to):
+def get_ohlc_history(symbol, timeframe, date_from, date_to, additional_columns=[]):
     ohlc = mt5.copy_rates_range(symbol, timeframe, date_from, date_to)
 
     ohlc_df = pd.DataFrame(ohlc)
     ohlc_df['time'] = pd.to_datetime(ohlc_df['time'], unit='s')
-    return ohlc_df[['time', 'open', 'high', 'low', 'close']]
+    return ohlc_df[['time', 'open', 'high', 'low', 'close'] + additional_columns]
 
 
 def create_ohlc_fig(ohlc, name='Symbol'):
