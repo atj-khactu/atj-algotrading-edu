@@ -3,7 +3,6 @@ import dash_bootstrap_components as dbc
 import MetaTrader5 as mt5
 from datetime import datetime, timedelta, time
 import pandas as pd
-from PIL import Image
 import plotly.express as px
 import json
 
@@ -82,10 +81,10 @@ def create_app(json_file, num_candles=50, candle_step=1, strategy_name='Strategy
 
             if d['sl'] != 0.0:
                 new_fig.add_hline(y=d['sl'], line_width=1, line_dash="dashdot", line_color="red")
-                new_fig.add_annotation(x=d['open_time'], y=d['sl'], text=ann_text, font=dict(size=17), showarrow=False, yshift=20)
+                new_fig.add_annotation(x=d['open_time'], y=d['sl'], text='sl', font=dict(size=17), showarrow=False, yshift=20)
             if d['tp'] != 0.0:
                 new_fig.add_hline(y=d['tp'], line_width=1, line_dash="dashdot", line_color="red")
-                new_fig.add_annotation(x=d['open_time'], y=d['tp'], text=ann_text, font=dict(size=17), showarrow=False, yshift=20)
+                new_fig.add_annotation(x=d['open_time'], y=d['tp'], text='tp', font=dict(size=17), showarrow=False, yshift=20)
 
             ann_text = f"{d['order_type']} {str(d['volume'])}"
             new_fig.add_annotation(x=d['open_time'], y=d['open_price'],

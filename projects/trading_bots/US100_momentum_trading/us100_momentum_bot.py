@@ -21,7 +21,7 @@ Optional
 
 symbol = 'USTEC'
 timeframe = mt5.TIMEFRAME_H1
-volume = 0.1
+volume_nominal = 10000
 magic = 1
 
 tz = pytz.timezone('EET')
@@ -88,6 +88,12 @@ if __name__ == '__main__':
         sma_10, sma_100 = get_sma()
 
         if candle['hour'] == candle_close_start and open_positions.empty and not has_closed_trades():
+
+            volume = volume_nominal / candle['close']
+            volume = round(volume, 2)
+            if volume >= 2:
+                print('volume too high')
+                exit()
 
             # buy positions
             if candle_type == 'bullish candle' and sma_10 > sma_100:
