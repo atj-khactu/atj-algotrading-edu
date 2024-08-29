@@ -276,9 +276,9 @@ def create_ohlc_fig(ohlc, name='Symbol'):
     return fig
 
 
-def create_price_fig(ohlc, indicators=[]):
+def create_price_fig(ohlc, indicators=[], height=600, title='Historical Price Data'):
     if indicators:
-        fig = px.line(ohlc, x='time', y=indicators, height=600, title='OHLC Data')
+        fig = px.line(ohlc, x='time', y=indicators, height=600, title=title)
         fig.add_trace(go.Candlestick(x=ohlc['time'],
                                      open=ohlc['open'],
                                      high=ohlc['high'],
@@ -292,7 +292,7 @@ def create_price_fig(ohlc, indicators=[]):
                                              low=ohlc['low'],
                                              close=ohlc['close'], name='OHLC Data')])
 
-        fig.update_layout(height=600, title='Historical Price Data')
+        fig.update_layout(height=height, title=title)
         fig.update_layout(xaxis_rangeslider_visible=False)
 
     return fig
