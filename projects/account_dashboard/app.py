@@ -15,7 +15,7 @@ pio.templates.default = "plotly_dark"
 pd.set_option('display.width', None)
 
 mt5.initialize(mt5_credentials['exe_path'])
-mt5.login(mt5_credentials['login'], mt5_credentials['password'], mt5_credentials['server'])
+# mt5.login(mt5_credentials['login'], mt5_credentials['password'], mt5_credentials['server'])
 
 app = Dash(__name__, external_stylesheets=[dbc.themes.DARKLY])
 
