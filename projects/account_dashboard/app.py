@@ -278,4 +278,4 @@ def create_trade_chart(trade_data):
 
 
 if __name__ == '__main__':
-    app.run(port=8055)
+    app.run(port=8021)
