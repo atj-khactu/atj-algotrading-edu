@@ -1,7 +1,7 @@
 import MetaTrader5 as mt5
 from time import sleep
 
-from atj_trading.mt5_trade_utils import send_market_order, close_all_positions
+from projects.atj_trading_legacy.mt5_trade_utils import send_market_order, close_all_positions
 
 
 if __name__ == '__main__':

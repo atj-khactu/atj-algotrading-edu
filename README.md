@@ -11,6 +11,10 @@ https://www.youtube.com/playlist?list=PLNzr8RBV5nboroOjaYy5m-6VhoFVt0Hv4
 ## Clone Repo
 > git clone https://github.com/atj-khactu/atj-algotrading-edu.git
 
+## ATJ Algo Trading Library
+This Github Repo utilizes ATJ Trader's Algo Trading Lib. 
+For the Documentation, please check out: https://github.com/atj-khactu/atj-algotrading-lib
+
 ## Install Python (3.11) requirements with PIP
 > pip install -r requirements.txt
 

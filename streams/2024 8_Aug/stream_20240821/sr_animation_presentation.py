@@ -1,7 +1,7 @@
 from dash import Dash, html, dcc, Output, Input
 import MetaTrader5 as mt5
 from datetime import datetime
-from atj_trading.backtester import get_ohlc_history, create_price_fig
+from projects.atj_trading_legacy.backtester import get_ohlc_history, create_price_fig
 from config import mt5_credentials
 
 mt5.initialize()

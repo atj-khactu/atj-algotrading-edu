@@ -1,5 +1,5 @@
 import MetaTrader5 as mt5
-from atj_trading.mt5_trade_utils import get_positions, close_position
+from projects.atj_trading_legacy.mt5_trade_utils import get_positions, close_position
 
 from time import sleep
 

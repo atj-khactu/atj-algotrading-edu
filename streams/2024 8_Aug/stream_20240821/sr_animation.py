@@ -1,12 +1,10 @@
-from dash import Dash, html, dcc, Output, Input, State
-import dash_bootstrap_components as dbc
+from dash import Dash, html, dcc, Output, Input
 
 import MetaTrader5 as mt5
 from IPython.display import display
 from datetime import datetime
-import plotly.express as px
 
-from atj_trading.backtester import get_ohlc_history, create_price_fig
+from projects.atj_trading_legacy.backtester import get_ohlc_history, create_price_fig
 from config import mt5_credentials
 
 mt5.initialize()

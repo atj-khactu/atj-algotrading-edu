@@ -1,12 +1,10 @@
-from dash import Dash, html, dcc, Input, Output, State, exceptions, dash_table
+from dash import Dash, html, dcc, Input, Output, exceptions, dash_table
 import dash_bootstrap_components as dbc
-import MetaTrader5 as mt5
-from datetime import datetime, timedelta, time
 import pandas as pd
 import plotly.express as px
 import json
 
-from atj_trading.backtester import Backtester, get_ohlc_history, create_price_fig
+from projects.atj_trading_legacy.backtester import create_price_fig
 
 def create_app(json_file, num_candles=50, candle_step=1, strategy_name='Strategy'):
     with open(json_file) as jsonfile:

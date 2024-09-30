@@ -2,7 +2,7 @@ from dash import Dash, html, Output, Input, State, dash_table, dcc
 import dash_bootstrap_components as dbc
 import MetaTrader5 as mt5
 from datetime import datetime, timedelta
-from atj_trading.backtester import get_ohlc_history
+from projects.atj_trading_legacy.backtester import get_ohlc_history
 import plotly.express as px
 
 app = Dash(__name__, external_stylesheets=[dbc.themes.DARKLY])

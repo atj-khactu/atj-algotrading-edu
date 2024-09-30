@@ -6,8 +6,8 @@ import pandas as pd
 import plotly.express as px
 import plotly.io as pio
 
-from atj_trading.backtester import create_price_fig, get_ohlc_history
-from atj_trading.mt5_trade_utils import get_positions
+from projects.atj_trading_legacy.backtester import create_price_fig, get_ohlc_history
+from projects.atj_trading_legacy.mt5_trade_utils import get_positions
 
 from config import mt5_credentials
 

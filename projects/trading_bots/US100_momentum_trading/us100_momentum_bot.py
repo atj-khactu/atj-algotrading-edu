@@ -4,8 +4,8 @@ import pandas as pd
 from datetime import datetime, time, timedelta
 import pytz
 
-from mt5_credentials import login, password, server, mt5_path
-from atj_trading.mt5_trade_utils import send_market_order, close_all_positions, get_positions, modify_sl_tp
+from mt5_credentials import login, password, server
+from projects.atj_trading_legacy.mt5_trade_utils import send_market_order, close_all_positions, get_positions
 
 """
 1) Wait for the 16:00 candle to close (1H timeframe)

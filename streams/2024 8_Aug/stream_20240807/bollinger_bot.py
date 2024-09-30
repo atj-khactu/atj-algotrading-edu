@@ -3,7 +3,7 @@ from time import sleep
 import pandas as pd
 from datetime import datetime
 
-from atj_trading.mt5_trade_utils import send_market_order, get_positions
+from projects.atj_trading_legacy.mt5_trade_utils import send_market_order, get_positions
 from config import mt5_credentials
 
 if __name__ == '__main__':
