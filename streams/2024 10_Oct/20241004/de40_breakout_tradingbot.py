@@ -3,10 +3,6 @@
 2) Enter a Breakout Trade whenever price closes above previous session High
 3) The Breakout must be the first breakout of the session
 4) The relative candle size must be between 1-3
-
-ToDo - Unify timezones using pytz (Suggested by Marpos24)
-ToDo - Optimize how candles are being saved
-ToDo - Optimize Strategy Logic how things are being computed
 """
 
 import MetaTrader5 as mt5
@@ -14,19 +10,23 @@ import pandas as pd
 from datetime import datetime, time, timedelta
 from time import sleep
 from atj_algotrading.mt5_trade_utils import send_market_order, close_all_positions, get_positions
+import pytz
 
 
 # Specify Strategy Parameters
 symbol = 'DE40'
+timeframe = mt5.TIMEFRAME_M1
 volume = 0.1
 magic = 204
 comment = 'DE40 Breakout Bot'
 
+broker_tz = pytz.timezone('EET')
+
 atr_period = 14
 
-trading_interval_start = time(8, 0, 0)
-trading_interval_end = time(11, 59, 59)
-close_trades_at = time(15, 45, 8)
+trading_interval_start = time(9, 0, 0)
+trading_interval_end = time(12, 59, 59)
+close_trades_at = time(16, 45, 8)
 
 def get_prev_session_high():
     d1_candle = mt5.copy_rates_from_pos(symbol, mt5.TIMEFRAME_D1, 1, 1)
@@ -57,8 +57,8 @@ def calculate_atr():
 
 
 def check_todays_breakouts():
-    start_dt = datetime.now().replace(hour=2, minute=0, second=0, microsecond=0)
-    end_dt = datetime.now() + timedelta(hours=3)
+    start_dt = datetime.now(tz=pytz.timezone('GMT+0')).replace(hour=0, minute=0, second=0, microsecond=0)
+    end_dt = datetime.now(tz=pytz.timezone('GMT+0'))
 
     candles = mt5.copy_rates_range(symbol, mt5.TIMEFRAME_M15, start_dt, end_dt)
 
@@ -88,7 +88,7 @@ def get_signal():
     relative_candle_size = last_m15_range / atr
 
     cond1 = last_m15_close > prev_session_high
-    cond2 = trading_interval_start <= datetime.now().time() <= trading_interval_end
+    cond2 = trading_interval_start <= datetime.now(tz=broker_tz).time() <= trading_interval_end
     cond3 = 1 <= relative_candle_size <= 3
     cond4 = broken_out_already == 0
 
@@ -102,6 +102,11 @@ def get_signal():
         return 0
 
 
+def get_current_candle():
+    current_candle = mt5.copy_rates_from_pos(symbol, timeframe, 0, 1)
+    return current_candle[0]
+
+
 if __name__ == '__main__':
     # initialize and login to MT5
     mt5.initialize()
@@ -109,16 +114,23 @@ if __name__ == '__main__':
 
     # Strategy Logic
     trading_allowed = True
+    current_candle_time = get_current_candle()[0]
 
     while trading_allowed:
-        signal = get_signal()
-        open_positions = get_positions(magic=magic)
+        if current_candle_time < get_current_candle()[0]:
 
-        if signal == 1 and open_positions.empty:
-            order_result = send_market_order(symbol, volume, 'buy')
-            print(order_result)
+            signal = get_signal()
+            open_positions = get_positions(magic=magic)
+
+            if signal == 1 and open_positions.empty:
+                order_result = send_market_order(symbol, volume, 'buy')
+                print(order_result)
+
+            current_candle_time = get_current_candle()[0]
 
         sleep(1)
+
+    current_candle_time = get_current_candle()[0]
 
 
 
