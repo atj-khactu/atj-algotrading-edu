@@ -3,6 +3,9 @@ import dash_bootstrap_components as dbc
 import random
 import pandas as pd
 import plotly.express as px
+import plotly.io as pio
+
+pio.templates.default = "plotly_dark"
 
 app = Dash(__name__, external_stylesheets=[dbc.themes.DARKLY])
 
@@ -75,7 +78,7 @@ def serve_page(n_clicks, risk_per_trade, win_rate, rrr, num_trades, num_simulati
     df['cumulative_profit'] = df.groupby('simulation')['profit'].cumsum()
     print(df)
 
-    fig = px.line(df, x='index', y='cumulative_profit', color='simulation')
+    fig = px.line(df, x='index', y='cumulative_profit', color='simulation', width=290 * 5, height=220 * 5)
 
     return [dcc.Graph(figure=fig)]
 
