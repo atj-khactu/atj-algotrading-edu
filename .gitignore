@@ -163,3 +163,4 @@ cython_debug/
 /config.py
 /projects/trading_bots/US100_momentum_trading/mt5_credentials.py
 /projects/trading_bots/DE40_prev_session_breakout/mt5_credentials.py
+/projects/trading_bots/PA_Trading_bot/mt5_credentials.py
