@@ -234,5 +234,5 @@ def create_app(json_file, num_candles=50, candle_step=1, strategy_name='Strategy
 
 
 if __name__ == '__main__':
-    app = create_app('de40_breakout.json', candle_step=5)
+    app = create_app('bollinger_backtest.json', candle_step=1)
     app.run()
